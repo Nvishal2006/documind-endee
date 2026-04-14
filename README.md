@@ -6,21 +6,22 @@ DocuMind is an end-to-end RAG (Retrieval-Augmented Generation) document intellig
 
 ```mermaid
 graph TD
-    User([User]) --> |Upload/Query| Frontend
-    Frontend[Vite + React UI] --> |SSE / REST| Backend(FastAPI)
-    
-    Backend --> |1. Extract & Chunk| Processor
-    Processor --> |2. Embed (all-MiniLM)| Dense[Dense Vector Setup]
-    Processor --> |3. Tokenize| Sparse[BM25 Index]
-    
-    Dense --> |Upsert & Query| Endee[(Endee Vector DB)]
-    Sparse --> |Persistent Corpus| SQLite[(SQLite)]
-    
-    Endee --> |Vector Match| Fusion
-    SQLite --> |Sparse Match| Fusion
-    Fusion --> |RRF (Top K=5)| RAG[LLM Streamer]
-    RAG --> |Claude/GPT Prompt| LLM((Anthropic / OpenAI API))
-    LLM --> |Streaming Response| Backend
+    User([User]) -->|Upload and Query| Frontend
+    Frontend[Vite + React UI] -->|SSE and REST| Backend[FastAPI]
+
+    Backend -->|Extract and Chunk| Processor[Doc Processor]
+    Processor -->|Embed all-MiniLM| Dense[Dense Vector Setup]
+    Processor -->|Tokenize| Sparse[BM25 Index]
+
+    Dense -->|Upsert and Query| Endee[(Endee Vector DB)]
+    Sparse -->|Persistent Corpus| SQLite[(SQLite)]
+
+    Endee -->|Vector Match| Fusion[RRF Fusion]
+    SQLite -->|Sparse Match| Fusion
+
+    Fusion -->|Top K=5| RAG[LLM Streamer]
+    RAG -->|Claude or GPT Prompt| LLM((Anthropic / OpenAI))
+    LLM -->|Streaming Response| Backend
 ```
 
 ## Infrastructure Decisions
