@@ -1,0 +1,15 @@
+fastapi>=0.100.0
+uvicorn>=0.23.0
+python-multipart
+pydantic>=2.0
+python-dotenv
+sqlalchemy>=2.0.0
+anthropic
+openai
+sentence-transformers>=2.2.2
+httpx
+sse-starlette
+pypdf
+python-docx
+beautifulsoup4
+rank_bm25
